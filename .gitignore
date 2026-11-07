@@ -1,0 +1,6 @@
+sysroot/
+src/
+build/
+mirror/
+original/
+*.log

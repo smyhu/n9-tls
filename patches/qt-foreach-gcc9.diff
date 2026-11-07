@@ -1,0 +1,31 @@
+--- a/src/corelib/global/qglobal.h
++++ b/src/corelib/global/qglobal.h
+@@ -2245,20 +2245,23 @@
+ 
+ #if defined(Q_CC_GNU) && !defined(Q_CC_INTEL) && !defined(Q_CC_RVCT)
+ /* make use of typeof-extension */
++/* n9-tls: Qt 5 style foreach without "break" inside statement expressions;
++   GCC >= 9 binds such a break to the outer loop, which made the Qt 4.7 macro
++   stop after the first element. Layout is local only, no ABI impact. */
+ template <typename T>
+ class QForeachContainer {
+ public:
+-    inline QForeachContainer(const T& t) : c(t), brk(0), i(c.begin()), e(c.end()) { }
++    inline QForeachContainer(const T& t) : c(t), i(c.begin()), e(c.end()), control(1) { }
+     const T c;
+-    int brk;
+     typename T::const_iterator i, e;
++    int control;
+ };
+ 
+ #define Q_FOREACH(variable, container)                                \
+ for (QForeachContainer<__typeof__(container)> _container_(container); \
+-     !_container_.brk && _container_.i != _container_.e;              \
+-     __extension__  ({ ++_container_.brk; ++_container_.i; }))                       \
+-    for (variable = *_container_.i;; __extension__ ({--_container_.brk; break;}))
++     _container_.control && _container_.i != _container_.e;           \
++     ++_container_.i, _container_.control ^= 1)                       \
++    for (variable = *_container_.i; _container_.control; _container_.control = 0)
+ 
+ #else
+ 

@@ -1,0 +1,12 @@
+--- a/src/network/ssl/qsslsocket.cpp
++++ b/src/network/ssl/qsslsocket.cpp
+@@ -2247,7 +2247,8 @@
+ */
+ QList<QByteArray> QSslSocketPrivate::unixRootCertDirectories()
+ {
+-    return QList<QByteArray>() <<  "/etc/ssl/certs/" // (K)ubuntu, OpenSUSE, Mandriva, MeeGo ...
++    return QList<QByteArray>() <<  "/etc/openssl-n9/certs/" // n9-tls: OpenSSL 1.0.2 hash links (openssl-n9 package)
++                               << "/etc/ssl/certs/" // (K)ubuntu, OpenSUSE, Mandriva, MeeGo ...
+                                << "/usr/lib/ssl/certs/" // Gentoo, Mandrake
+                                << "/usr/share/ssl/" // Centos, Redhat, SuSE
+                                << "/usr/local/ssl/" // Normal OpenSSL Tarball

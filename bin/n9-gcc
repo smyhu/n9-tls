@@ -1,0 +1,11 @@
+#!/bin/bash
+# gcc wrapper: only N9 sysroot headers/libs/crt files, no host-toolchain glibc
+TLS=$(cd "$(dirname "$0")/.." && pwd); S=$TLS/sysroot; G=arm-linux-gnueabihf-gcc
+GI=$($G -print-file-name=include)
+link=1; for a in "$@"; do case "$a" in -c|-S|-E|-M|-MM) link=0;; esac; done
+args=(-nostdinc -isystem "$GI" -isystem "$S/usr/include"
+ -march=armv7-a -mtune=cortex-a8 -mfpu=neon -mfloat-abi=hard -mthumb
+ -fno-stack-protector -U_FORTIFY_SOURCE -fno-stack-clash-protection -fcf-protection=none -fno-pie -fcommon)
+[ $link = 1 ] && args+=(-no-pie -B"$S/usr/lib/" -L"$S/lib" -L"$S/usr/lib" --sysroot="$S"
+ -Wl,--dynamic-linker=/lib/ld-linux.so.3 -Wl,--hash-style=both -Wl,-z,norelro -Wl,-rpath-link,"$S/lib:$S/usr/lib")
+exec $G "${args[@]}" "$@"

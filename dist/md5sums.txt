@@ -1,0 +1,4 @@
+17ca12ea9fd806da655d67881d1826fc  aegis-certman-common-ca_1.0.8+0m8_all.deb
+de4dd045b44649e61639efed3d6b2049  libcurl3_7.21.0-1maemo4+0m6_armel.deb
+de624c7212400be644cf7f1fd7ae1575  libqt4-network_4.7.4~git20120327-0maemo1+0m8_armel.deb
+81e66833c3915a2f101b0095b9f7ebf9  openssl-n9_1.0.2u-2_armel.deb
