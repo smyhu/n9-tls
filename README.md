@@ -73,7 +73,7 @@ Reboot afterwards. Certificates added to the Aegis store stay there, which does 
 
 ## Tested
 
-On a Nokia N9 with PR1.3 (November 2026): TLS 1.2 with ECDHE-GCM ciphers and certificate verification, the system browser (including SNI sites behind Cloudflare), mail, Nextcloud CalDAV two-way calendar sync, Warehouse, RSS, curl-based map tiles (CloudGPS). The location service `nped` keeps loading only the original OpenSSL 0.9.8.
+On a Nokia N9 with PR1.3 (November 2026): TLS 1.2 with ECDHE-GCM ciphers and certificate verification, the system browser (including SNI sites behind Cloudflare), mail, Nextcloud CalDAV two-way calendar sync, Warehouse, RSS, curl-based map tiles (CloudGPS). The location service `nped` keeps loading only the original OpenSSL 0.9.8, so A-GPS works: first position fix in 4 seconds with a SIM card and mobile data.
 
 Modern websites still look broken in the 2012 system browser. That is a JavaScript/CSS limit of the browser, not a TLS problem.
 
